@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 07 - Intro Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="exercicio">
+        <h1 v-bind:style="{ backgroundColor: corContador }">Contador: {{ timer() }} = {{ parImpar() }}</h1>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const { createApp } = Vue;
+    createApp({
+        data() {
+            return {
+                corfundo: 'blue',
+                corfundo1: 'red',
+                num: 0,
+                corContador: ''
+            }
+        },
+        methods: {
+            timer() {
+                setTimeout(() => {
+                    this.num += 1
+                    this.definirCorContador()
+                }, 2000)
+                return this.num
+            },
+            parImpar: function () {
+                return this.num % 2 === 0 ? "Par" : "Ímpar"
+            },
+            definirCorContador() {
+                this.corContador = this.num % 2 === 0 ? 'green' : 'red'
+            },
+            trocaCor() {
+                    let aux = this.corfundo;
+                    this.corfundo = this.corfundo1;
+                    this.corfundo1 = aux;
+                }
+        }
+    }).mount("#exercicio")
+</script>

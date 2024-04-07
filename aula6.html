@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 06 - Intro Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>Contador: {{ timer() }} = {{parImpar()}}</h3>
+    </div>
+</body>
+</html>
+
+<script>
+    const { createApp } = Vue;
+    createApp( {
+        data() {
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            timer() {
+                setTimeout(() => {
+                    this.num += 1
+                },1000)
+                return this.num
+            },
+            parImpar: function () {
+                return this.num % 2 === 0 ? "Par" : "Impar"
+            }
+        }
+    } ).mount("#app")
+</script>
