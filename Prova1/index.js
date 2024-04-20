@@ -4,17 +4,27 @@ createApp({
     data() {
         return {
             heroi: { vida: 100 },
-            vilao: { vida: 100 }
+            vilao: { vida: 100 },
+            logs: []
         }
     },
     methods: {
+        adicionarLog(log) {
+            if (this.logs.length >= 8) {
+                this.logs.shift();
+            }
+            this.logs.push(log);
+        },
+        limparLogs() {
+            this.logs = [];
+        },
         atacar(isHeroi) {
             if (isHeroi) {
                 this.vilao.vida -= 10;
-                console.log("O herói atacou!");
+                this.adicionarLog("O herói atacou!");
                 // Adiciona uma chance de 1/3 do vilão revidar
                 if (Math.random() < 1 / 3) {
-                    console.log("Contra aquete do vilão!");
+                    this.adicionarLog("Contra aquete do vilão!");
                     this.acaoVilao();
                 }
             } else {
@@ -25,9 +35,9 @@ createApp({
         defender(isHeroi) {
             // Adiciona uma chance de 2/3 do heroi defender o ataque do vilão
             if (Math.random() < 2 / 3) {
-                console.log("Heroi defendeu!");
+                this.adicionarLog("Heroi defendeu!");
             } else {
-                console.log("Defesa falhou!");
+                this.adicionarLog("Defesa falhou!");
                 this.acaoVilao();
             }
         },
@@ -38,13 +48,13 @@ createApp({
             if (this.heroi.vida > 100) {
                 this.heroi.vida = 100;
             }
-            console.log("Herói usou poção!");
+            this.adicionarLog("Herói usou poção!");
             // Gera uma chance de 1/3 do vilão atacar e outra chance de 1/3 do vilão se curar em 10 de vida
             if (Math.random() < 1 / 3) {
-                console.log("Vilão atacou!");
+                this.adicionarLog("Vilão atacou!");
                 this.acaoVilao();
             } else if (Math.random() < 2 / 3) {
-                console.log("Vilão usou poção!");
+                this.adicionarLog("Vilão usou poção!");
                 this.vilao.vida += 10;
                 // Limita a vida do vilão a 100
                 if (this.vilao.vida > 100) {
@@ -56,15 +66,15 @@ createApp({
             // Ataque crítico que causa o dobro do dano do ataque normal
             if (isHeroi) {
                 this.vilao.vida -= 20;
-                console.log("O herói deu um golpe crítico!");
+                this.adicionarLog("O herói deu um golpe crítico!");
                 // Adiciona uma chance de 1/3 do vilão revidar
                 if (Math.random() < 1 / 3) {
-                    console.log("Contra aquete do vilão!");
+                    this.adicionarLog("Contra aquete do vilão!");
                     this.acaoVilao();
                 }
             } else {
                 this.heroi.vida -= 40;
-                console.log("O vilão deu um golpe crítico!");
+                this.adicionarLog("O vilão deu um golpe crítico!");
             }
         },
         acaoVilao() {
@@ -78,9 +88,11 @@ createApp({
             if (this.heroi.vida <= 0) {
                 alert("Vilão Ganhou");
                 this.recomecar();
+                this.limparLogs();
             } else if (this.vilao.vida <= 0) {
                 alert("Herói Ganhou");
                 this.recomecar();
+                this.limparLogs();
             }
         },
         recomecar() {

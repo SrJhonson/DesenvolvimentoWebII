@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     display: flex;
@@ -9,15 +10,17 @@ body, html {
 
 #app {
     width: 80%;
-    max-width: 600px;
+    max-width: 1000px;
     text-align: center;
-
+    display: flex;
+    flex-direction: row;
 }
 
 .personagem {
     background-color: white;
     border: 2px solid #1d509f;
     margin-bottom: 20px;
+    margin: 10px;
     padding: 10px;
     border-radius: 5px;
     width: 200px;
