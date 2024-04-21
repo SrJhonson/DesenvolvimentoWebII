@@ -8,9 +8,25 @@ createApp({
             logs: []
         }
     },
+    computed: {
+        heroiVidaClasse() {
+            return {
+                'vida-vermelha': this.heroi.vida <= 25,
+                'vida-amarela': this.heroi.vida > 25 && this.heroi.vida <= 50,
+                'vida-verde': this.heroi.vida > 50
+            }
+        },
+        vilaoVidaClasse() {
+            return {
+                'vida-vermelha': this.vilao.vida <= 25,
+                'vida-amarela': this.vilao.vida > 25 && this.vilao.vida <= 50,
+                'vida-verde': this.vilao.vida > 50
+            }
+        }
+    },
     methods: {
         adicionarLog(log) {
-            if (this.logs.length >= 8) {
+            if (this.logs.length >= 20) {
                 this.logs.shift();
             }
             this.logs.push(log);
@@ -40,6 +56,7 @@ createApp({
                 this.adicionarLog("Defesa falhou!");
                 this.acaoVilao();
             }
+            this.verificarVida();
         },
         usarPocao(isHeroi) {
             // Recupera 15 de vida do herói
@@ -61,6 +78,7 @@ createApp({
                     this.vilao.vida = 100;
                 }
             }
+            this.verificarVida();
         },
         critico(isHeroi) {
             // Ataque crítico que causa o dobro do dano do ataque normal
@@ -76,6 +94,7 @@ createApp({
                 this.heroi.vida -= 40;
                 this.adicionarLog("O vilão deu um golpe crítico!");
             }
+            this.verificarVida();
         },
         acaoVilao() {
             const acoes = ['atacar', 'defender', 'usarPocao', 'critico'];
