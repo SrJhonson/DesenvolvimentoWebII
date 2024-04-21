@@ -87,12 +87,9 @@ createApp({
                 this.adicionarLog("O herói deu um golpe crítico!");
                 // Adiciona uma chance de 1/3 do vilão revidar
                 if (Math.random() < 1 / 3) {
-                    this.adicionarLog("Contra aquete do vilão!");
-                    this.acaoVilao();
+                    this.adicionarLog("O vilão deu um golpe crítico!");
+                    this.heroi.vida -= 30;
                 }
-            } else {
-                this.heroi.vida -= 40;
-                this.adicionarLog("O vilão deu um golpe crítico!");
             }
             this.verificarVida();
         },
@@ -105,11 +102,11 @@ createApp({
         verificarVida() {
             // Se a vida de qual quer um chegar a 0 cria-se um pop-up alertando o vencedor!!
             if (this.heroi.vida <= 0) {
-                alert("Vilão Ganhou");
+                alert("Vilão Ganhou!! CONQUISTAMOS A LUAAA!!!!!");
                 this.recomecar();
                 this.limparLogs();
             } else if (this.vilao.vida <= 0) {
-                alert("Herói Ganhou");
+                alert("Herói Ganhou!! O BEM SEMPRE IRÁ VENCER!!!!!");
                 this.recomecar();
                 this.limparLogs();
             }
