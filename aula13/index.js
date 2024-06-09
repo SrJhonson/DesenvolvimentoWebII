@@ -9,6 +9,11 @@ createApp({
             nextPage: 1
         }
     },
+    computed: {
+        filteredPokemons() {
+            return this.pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(this.searchText.toLowerCase()))
+        }
+    },
     methods: {
         async fetchPokemons() {
             try{
@@ -33,11 +38,35 @@ createApp({
                     sprites: data.sprites,
                     weight: data.weight,
                     types: data.types,
-                    showDetails: false
+                    showDetails: true
                 }
             }catch (err) {
                 console.error(err)
             }
+        },
+        getTypeClass(type) {
+            const typeClassMap = {
+                fire: "fire",
+                grass: "grass",
+                water: "water",
+                bug: "bug",
+                normal: "normal",
+                poison: "poison",
+                electric: "electric",
+                ground: "ground",
+                fairy: "fairy",
+                fighting: "fighting",
+                psychic: "psychic",
+                ice: "ice",
+                flying: "flying",
+                ghost: "ghost",
+                dragon: "dragon",
+                steel: "steel",
+                dark: "dark",
+                rock: "rock"
+            }
+
+            return typeClassMap[type] || ""
         }
     }
 }).mount("#app")
